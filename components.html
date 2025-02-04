@@ -300,6 +300,33 @@
   ga('send', 'pageview');
 </script>
 
---> <script type="text/javascript" src="./main.0cf8b554.js"></script></body>
+--> 
+<script>
+  // Function to load dynamic content and run dependent scripts
+  function loadContent() {
+    const headerPromise = fetch('./components/header.html')
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById('header').innerHTML = data;
+      });
+
+    const footerPromise = fetch('./components/footer.html')
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById('footer').innerHTML = data;
+      });
+
+    // Wait for both header and footer to load
+    Promise.all([headerPromise, footerPromise]).then(() => {
+      navbarFixedTopAnimation();
+      navActivePage();
+    });
+  }
+
+  // Load content on DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', loadContent);
+</script>
+
+<script type="text/javascript" src="./main.0cf8b554.js"></script></body>
 
 </html>
